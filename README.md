@@ -1,226 +1,210 @@
-Medical Insurance Cost Prediction
-A machine learning project that predicts medical insurance costs based on various personal and demographic factors using Linear Regression.
-Table of Contents
+# Medical Insurance Cost Prediction
 
-Overview
-Dataset
-Features
-Technologies Used
-Data Analysis
-Model Implementation
-Results
-Installation
-Usage
+A machine learning project that predicts medical insurance costs based on various personal and demographic factors using **Linear Regression**.
 
-Overview
-This project implements a Linear Regression model to predict medical insurance costs. The model analyzes various factors such as age, BMI, number of children, smoking status, gender, and region to estimate insurance charges for individuals.
-Dataset
-The dataset (insurance.csv) contains 1,338 records with the following attributes:
-FeatureDescriptionTypeageAge of the insured personNumericalsexGender (male/female)CategoricalbmiBody Mass IndexNumericalchildrenNumber of children/dependentsNumericalsmokerSmoking status (yes/no)CategoricalregionResidential region (northeast, northwest, southeast, southwest)CategoricalchargesMedical insurance cost (Target Variable)Numerical
-Dataset Statistics
+---
 
-Shape: 1,338 rows × 7 columns
-No missing values in any column
-Gender Distribution: 676 males, 662 females
-Smoker Distribution: 1,064 non-smokers, 274 smokers
-Region Distribution: Relatively balanced across all four regions
+## 📑 Table of Contents
+- Overview  
+- Dataset  
+- Features  
+- Technologies Used  
+- Data Analysis  
+- Model Implementation  
+- Results  
+- Installation  
+- Usage  
+- Project Structure  
+- Future Improvements  
+- Contributing  
+- License  
+- Acknowledgments  
 
-Features
-Data Preprocessing
+---
 
-Categorical Encoding:
+## 📌 Overview
+This project implements a **Linear Regression** model to predict medical insurance costs.  
+The model analyzes various factors such as **age, BMI, number of children, smoking status, gender, and region** to estimate insurance charges for individuals.
 
-Gender: male = 0, female = 1
-Smoker: yes = 0, no = 1
-Region: southeast = 0, southwest = 1, northeast = 2, northwest = 3
+---
 
+## 📊 Dataset
+The dataset (`insurance.csv`) contains **1,338 records** with the following attributes:
 
-Feature Engineering: All categorical variables converted to numerical format for model compatibility
+| Feature   | Description                                   | Type         |
+|----------|-----------------------------------------------|--------------|
+| age      | Age of the insured person                     | Numerical    |
+| sex      | Gender (male/female)                          | Categorical  |
+| bmi      | Body Mass Index                               | Numerical    |
+| children | Number of children/dependents                 | Numerical    |
+| smoker   | Smoking status (yes/no)                       | Categorical  |
+| region   | Residential region                            | Categorical  |
+| charges  | Medical insurance cost (Target Variable)      | Numerical    |
 
-Technologies Used
-python- Python 3.x
-- NumPy - Numerical computing
-- Pandas - Data manipulation and analysis
-- Matplotlib - Data visualization
-- Seaborn - Statistical data visualization
-- Scikit-learn - Machine learning library
-  - LinearRegression - Model
-  - train_test_split - Data splitting
-  - r2_score - Model evaluation
-Data Analysis
-Exploratory Data Analysis (EDA)
+### Dataset Statistics
+- **Shape:** 1,338 rows × 7 columns  
+- **Missing Values:** None  
+- **Gender Distribution:** 676 males, 662 females  
+- **Smoker Distribution:** 1,064 non-smokers, 274 smokers  
+- **Region Distribution:** Relatively balanced across all four regions  
 
-Age Distribution:
+---
 
-Visualized using distribution plot
-Shows the spread of ages across the dataset
+## 🧩 Features
 
+### Data Preprocessing
 
-Gender Distribution:
+**Categorical Encoding**
+- Gender: `male = 0`, `female = 1`
+- Smoker: `yes = 0`, `no = 1`
+- Region:
+  - southeast = 0  
+  - southwest = 1  
+  - northeast = 2  
+  - northwest = 3  
 
-Nearly equal distribution between males and females
-Visualized using count plot
+**Feature Engineering**
+- All categorical variables converted to numerical format for model compatibility
 
+---
 
-BMI Distribution:
+## 🛠 Technologies Used
+- **Python 3.x**
+- **NumPy** – Numerical computing  
+- **Pandas** – Data manipulation and analysis  
+- **Matplotlib** – Data visualization  
+- **Seaborn** – Statistical data visualization  
+- **Scikit-learn**
+  - `LinearRegression`
+  - `train_test_split`
+  - `r2_score`
 
-Normal distribution pattern observed
-Centered around 30 (average BMI)
+---
 
+## 🔍 Data Analysis
 
-Children Distribution:
+### Exploratory Data Analysis (EDA)
 
-Most insured individuals have 0-2 children
-Maximum of 5 children in the dataset
+- **Age Distribution**
+  - Visualized using distribution plots
+  - Shows the spread of ages across the dataset
 
+- **Gender Distribution**
+  - Nearly equal distribution between males and females
+  - Visualized using count plots
 
-Smoker Status:
+- **BMI Distribution**
+  - Normal distribution pattern
+  - Centered around BMI ≈ 30
 
-Majority are non-smokers (79.5%)
-Smokers represent 20.5% of the dataset
+- **Children Distribution**
+  - Most insured individuals have 0–2 children
+  - Maximum of 5 children
 
+- **Smoker Status**
+  - Non-smokers: 79.5%
+  - Smokers: 20.5%
 
-Regional Distribution:
+- **Regional Distribution**
+  - Fairly balanced across regions
+  - Southeast slightly higher representation
 
-Fairly balanced across all four regions
-Southeast has slightly more representation (364 records)
+- **Charges Distribution**
+  - Right-skewed
+  - Majority of values in lower range with few high outliers
 
+---
 
-Charges Distribution:
+## ⚙️ Model Implementation
 
-Right-skewed distribution
-Most charges fall in the lower range with some high outliers
+### Data Splitting
+- **Training Set:** 80% (1,070 samples)
+- **Test Set:** 20% (268 samples)
+- **Random State:** 2 (for reproducibility)
 
+### Algorithm
+**Linear Regression** was chosen because:
+- Simple and interpretable
+- Suitable for continuous target variables
+- Captures linear relationships
+- Fast training and prediction
 
-
-Model Implementation
-Data Splitting
-
-Training Set: 80% (1,070 samples)
-Test Set: 20% (268 samples)
-Random State: 2 (for reproducibility)
-
-Algorithm
-Linear Regression was chosen for this regression task because:
-
-Simple and interpretable
-Works well with continuous target variables
-Establishes linear relationships between features and target
-Fast training and prediction
-
-Model Training
-pythonregressor = LinearRegression()
+### Model Training
+```python
+regressor = LinearRegression()
 regressor.fit(X_train, Y_train)
-Results
-Model Performance
-MetricTraining DataTest DataR² Score0.75150.7447
-Interpretation
 
-Training R² Score: 75.15%
+## 📈 Results
 
-The model explains approximately 75% of the variance in insurance costs on training data
+### Model Performance
 
+| Metric  | Training Data | Test Data |
+|--------|---------------|-----------|
+| R² Score | 0.7515 | 0.7447 |
 
-Test R² Score: 74.47%
+### Interpretation
+- **Training R²:** Explains ~75.15% variance  
+- **Test R²:** Explains ~74.47% variance  
+- **Minimal overfitting:** Difference < 1%  
+- **Good generalization capability**
 
-The model maintains consistent performance on unseen data
-Minimal overfitting (difference < 1%)
-Good generalization capability
+### Key Insights
+- Consistent performance across training and test datasets  
+- Strong predictors include **smoking status, age, and BMI**  
+- Model is reliable, interpretable, and suitable for baseline prediction  
 
+---
 
+## 🧪 Installation
 
-Key Insights
-
-Model Reliability: The close R² scores between training and test sets indicate the model generalizes well to new data
-Predictive Power: With an R² score of ~74%, the model can reasonably predict insurance costs based on the given features
-Feature Importance: The linear relationship suggests that features like smoking status, age, and BMI are likely strong predictors of insurance costs
-
-Installation
-
-Clone the repository:
-
-bashgit clone https://github.com/yourusername/medical-insurance-prediction.git
-cd medical-insurance-prediction
-
-Install required packages:
-
-bashpip install numpy pandas matplotlib seaborn scikit-learn
+### Clone the Repository
+```bash
+git clone https://github.com/PranavbalajiGit/Medical-Insurance-Cost-Prediction-Using-ML
+cd Medical-Insurance-Cost-Prediction-Using-ML
 ```
 
-3. Ensure you have the dataset:
-```
+**Install Required Packages**
+pip install numpy pandas matplotlib seaborn scikit-learn
+
+**Dataset**
+Ensure the dataset file is present:
 insurance.csv
-Usage
-Running the Notebook
 
-Open the Jupyter notebook:
 
-bashjupyter notebook medical_insurance_cost.ipynb
+Run all cells to:
 
-Run all cells sequentially to:
-
-Load and explore the data
+Load and explore data
 Visualize distributions
 Preprocess features
 Train the model
 Evaluate performance
 
+**Making Predictions**
 
-
-Making Predictions
-python# Example prediction for a new patient
+# Example prediction for a new patient
 new_patient = [[35, 0, 28.5, 2, 1, 1]]  # age, sex, bmi, children, smoker, region
 predicted_cost = regressor.predict(new_patient)
 print(f"Predicted Insurance Cost: ${predicted_cost[0]:.2f}")
-```
 
-## Project Structure
-```
+
+**📂 Project Structure**
 medical-insurance-prediction/
 │
 ├── medical_insurance_cost.ipynb    # Main Jupyter notebook
 ├── insurance.csv                   # Dataset
 ├── README.md                       # Project documentation
 └── requirements.txt                # Python dependencies
-Future Improvements
 
-Feature Engineering:
+**🤝 Contributing**
 
-Create interaction features (e.g., smoker × age, smoker × BMI)
-Polynomial features for non-linear relationships
+Contributions are welcome!
+Feel free to submit a Pull Request.
 
+.
 
-Model Enhancement:
-
-Try advanced algorithms (Random Forest, Gradient Boosting)
-Hyperparameter tuning
-Cross-validation for robust evaluation
-
-
-Additional Analysis:
-
-Feature importance analysis
-Residual analysis
-Outlier detection and treatment
-
-
-Deployment:
-
-Create a web interface for predictions
-Deploy model as REST API
-Build interactive dashboard
-
-
-
-Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-License
+**📜 License**
 This project is open source and available under the MIT License.
-Acknowledgments
 
-Dataset source: [Insert dataset source if applicable]
-Inspiration from various insurance cost prediction projects
-Thanks to the scikit-learn and pandas communities
-
-
-Note: This is an educational project for demonstrating machine learning techniques in predicting insurance costs. Always consult with insurance professionals for actual insurance decisions.
+**Note:**
+This project is for educational purposes only.
+Always consult insurance professionals for real-world insurance decisions.
